@@ -133,7 +133,11 @@ function render() {
               <div class="job-card" data-index="${index}">
                 <div class="job-card-header">
                   <div class="job-card-title">${job.title}</div>
-                  <div class="job-card-badge">${job.status || 'New'}</div>
+                  <div class="job-card-badge">
+                    <span class="badge badge-${(job.status || 'New').toLowerCase().replace(/\s+/g, '-')}">
+                      ${job.status || 'New'}
+                    </span>
+                  </div>
                 </div>
                 <div class="job-card-company">
                   <i class="fas fa-building"></i>
