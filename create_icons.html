@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Icons</title>
+</head>
+<body>
+    <canvas id="canvas16"></canvas>
+    <canvas id="canvas48"></canvas>
+    <canvas id="canvas128"></canvas>
+    <script>
+        function createIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Background circle
+            ctx.fillStyle = '#4a9b7f';
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Briefcase
+            const briefcaseSize = size * 0.5;
+            const x = (size - briefcaseSize) / 2;
+            const y = (size - briefcaseSize) / 2;
+            
+            // Main body
+            ctx.fillStyle = 'white';
+            ctx.fillRect(x + briefcaseSize * 0.1, y + briefcaseSize * 0.3, briefcaseSize * 0.8, briefcaseSize * 0.5);
+            
+            // Handle
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = Math.max(1, size / 32);
+            ctx.beginPath();
+            ctx.arc(size/2, y + briefcaseSize * 0.2, briefcaseSize * 0.35, Math.PI, 0);
+            ctx.stroke();
+            
+            // Download link
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = `icon${size}.png`;
+            link.click();
+        }
+        
+        createIcon('canvas16', 16);
+        setTimeout(() => createIcon('canvas48', 48), 100);
+        setTimeout(() => createIcon('canvas128', 128), 200);
+    </script>
+</body>
+</html>

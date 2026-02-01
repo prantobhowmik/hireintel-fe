@@ -1,0 +1,42 @@
+QUICK INSTALLATION GUIDE
+========================
+
+1. Open Chrome and go to: chrome://extensions/
+
+2. Enable "Developer mode" (toggle in top-right corner)
+
+3. Click "Load unpacked"
+
+4. Select this folder
+
+5. The extension is now installed!
+
+USAGE
+=====
+
+1. Visit a job portal (LinkedIn, Glassdoor, Bdjobs, Naukri, or any job site)
+
+2. Click the extension icon in the toolbar
+
+3. Click "Scrape Job" to auto-extract job details
+
+4. If auto-scraping fails, use "Manual Select" mode
+
+5. Export results as JSON, TXT, or copy to clipboard
+
+SUPPORTED SITES
+===============
+
+- LinkedIn (linkedin.com)
+- Glassdoor (glassdoor.com)
+- Bdjobs (bdjobs.com)
+- Naukri (naukri.com)
+- Generic fallback for other job sites
+
+TROUBLESHOOTING
+===============
+
+- If scraping fails, try Manual Select mode
+- Refresh the page and try again
+- Check that you're on a job listing page
+- Open DevTools (F12) to see error messages

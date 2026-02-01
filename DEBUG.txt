@@ -1,0 +1,53 @@
+DEBUGGING GUIDE
+===============
+
+The extension is not scraping because you're on a job SEARCH/COLLECTION page, not a specific JOB DETAIL page.
+
+WHAT YOU NEED TO DO:
+====================
+
+1. Click on a SPECIFIC JOB LISTING (not the search results page)
+   - You need to click on one of the job cards to open the job detail page
+   - The URL should change to show the specific job ID
+
+2. THEN click the extension icon and try "Scrape Job"
+
+EXAMPLE:
+========
+
+❌ WRONG: linkedin.com/jobs/collections/recommended/
+   (This is a search/collection page - won't work)
+
+✅ RIGHT: linkedin.com/jobs/view/1234567890/
+   (This is a specific job detail page - will work)
+
+HOW TO CHECK IF YOU'RE ON THE RIGHT PAGE:
+==========================================
+
+1. Look at the right side of LinkedIn - you should see:
+   - Job title (e.g., "Frontend Engineer")
+   - Company name
+   - Job description with details
+   - "Easy Apply" button
+
+2. If you see a list of jobs on the left, you're still on the search page
+   - Click on ONE job to open its details
+
+DEBUGGING STEPS:
+================
+
+1. Open DevTools (F12)
+2. Go to Console tab
+3. Look for messages starting with "[Job Scraper]" or "[Popup]"
+4. These will tell you what's happening
+
+MANUAL MODE:
+============
+
+If auto-scraping still fails:
+1. Click "Try Manual Selection"
+2. Highlight the job description text on the page
+3. Click "Capture Selection"
+4. Click "Save Entry"
+
+This will work on any page!

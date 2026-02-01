@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HireInter</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 500px;
+        min-height: 600px;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        background: #f8f9fa;
+        color: #333;
+      }
+
+      #root {
+        min-height: 600px;
+        background: #f8f9fa;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      /* Header with logo */
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .logo {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #4a9b7f 0%, #3d7f68 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 28px;
+        flex-shrink: 0;
+      }
+
+      .header-text h1 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 2px;
+      }
+
+      .header-text p {
+        font-size: 13px;
+        color: #999;
+      }
+
+      /* Resume upload section */
+      .resume-upload-section {
+        margin-bottom: 16px;
+      }
+
+      .resume-drop-zone {
+        border: 2px dashed #b3d9d0;
+        border-radius: 12px;
+        padding: 24px 16px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: #f0faf8;
+      }
+
+      .resume-drop-zone:hover, .resume-drop-zone.dragover {
+        border-color: #4a9b7f;
+        background: #e8f5f2;
+      }
+
+      .resume-drop-zone.has-file {
+        border-color: #4a9b7f;
+        background: #e8f5f2;
+        border-style: solid;
+      }
+
+      .resume-icon {
+        font-size: 28px;
+        color: #4a9b7f;
+        margin-bottom: 8px;
+      }
+
+      .resume-drop-zone h3 {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 4px;
+      }
+
+      .resume-drop-zone p {
+        font-size: 12px;
+        color: #999;
+      }
+
+      .resume-file-name {
+        font-size: 11px;
+        color: #4a9b7f;
+        margin-top: 6px;
+        font-weight: 600;
+      }
+
+      /* Buttons */
+      .btn {
+        width: 100%;
+        padding: 12px 16px;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #4a9b7f 0%, #3d7f68 100%);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(74, 155, 127, 0.3);
+      }
+
+      .btn-secondary {
+        background: white;
+        color: #4a9b7f;
+        border: 2px solid #4a9b7f;
+      }
+
+      .btn-secondary:hover {
+        background: #f0faf8;
+      }
+
+      .btn-small {
+        padding: 8px 12px;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      .btn-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 12px;
+        resize: vertical;
+        transition: border-color 0.3s ease;
+        height: 80px;
+      }
+
+      .textarea:focus {
+        outline: none;
+        border-color: #4a9b7f;
+        box-shadow: 0 0 0 2px rgba(74, 155, 127, 0.1);
+      }
+
+      /* Recent jobs section */
+      .recent-jobs-section {
+        margin-top: 16px;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .section-header h2 {
+        font-size: 12px;
+        font-weight: 700;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .section-header span {
+        font-size: 12px;
+        color: #999;
+      }
+
+      .job-card {
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .job-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: #4a9b7f;
+      }
+
+      .job-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 6px;
+      }
+
+      .job-card-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .job-card-badge {
+        font-size: 10px;
+        font-weight: 600;
+        padding: 3px 8px;
+        border-radius: 4px;
+        background: #e8f5f2;
+        color: #4a9b7f;
+      }
+
+      .job-card-company {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #999;
+        margin-bottom: 6px;
+      }
+
+      .job-card-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 11px;
+        color: #999;
+      }
+
+      /* Spinner */
+      .spinner-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #e0e0e0;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      .spinner {
+        width: 36px;
+        height: 36px;
+        border: 3px solid rgba(74, 155, 127, 0.1);
+        border-radius: 50%;
+        border-top-color: #4a9b7f;
+        animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      .loading-text {
+        margin-top: 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #4a9b7f;
+        letter-spacing: 0.3px;
+      }
+
+      /* Alert */
+      .alert {
+        padding: 10px 12px;
+        border-radius: 6px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 12px;
+      }
+
+      .alert-success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .alert-error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .alert-info {
+        background: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+
+      /* Job details modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        overflow-y: auto;
+      }
+
+      .modal.active {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 8px;
+        max-width: 500px;
+        width: 100%;
+        max-height: 70vh;
+        overflow-y: auto;
+        margin-top: 20px;
+      }
+
+      .modal-header {
+        padding: 16px;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-header h2 {
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #999;
+      }
+
+      .modal-body {
+        padding: 16px;
+      }
+
+      .job-detail-section {
+        margin-bottom: 16px;
+      }
+
+      .job-detail-section h3 {
+        font-size: 11px;
+        font-weight: 700;
+        color: #999;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+        letter-spacing: 0.5px;
+      }
+
+      .job-detail-content {
+        font-size: 12px;
+        color: #333;
+        line-height: 1.5;
+        white-space: pre-wrap;
+        word-break: break-word;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .modal-footer {
+        padding: 12px 16px;
+        border-top: 1px solid #e0e0e0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      #resumeInput {
+        display: none;
+      }
+
+      /* Review Form */
+      .review-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #e0e0e0;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .form-group label {
+        font-size: 10px;
+        font-weight: 700;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 13px;
+        color: #333;
+        transition: all 0.3s ease;
+      }
+
+      .input-field:focus {
+        outline: none;
+        border-color: #4a9b7f;
+        box-shadow: 0 0 0 2px rgba(74, 155, 127, 0.1);
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 20px 10px;
+      }
+
+      .empty-state-icon {
+        font-size: 32px;
+        color: #ddd;
+        margin-bottom: 8px;
+      }
+
+      .empty-state h3 {
+        font-size: 14px;
+        color: #999;
+        margin-bottom: 4px;
+      }
+
+      .empty-state p {
+        font-size: 12px;
+        color: #bbb;
+      }
+
+      /* Analysis Styles */
+      .analysis-box {
+        background: #f0faf8;
+        border: 1px solid #4a9b7f;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 20px;
+      }
+
+      .analysis-header {
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(74, 155, 127, 0.2);
+      }
+
+      .match-score {
+        font-size: 16px;
+        font-weight: 700;
+        color: #4a9b7f;
+      }
+
+      .skill-tag {
+        display: inline-block;
+        background: #e8f5f2;
+        color: #4a9b7f;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 600;
+        margin-right: 6px;
+        margin-bottom: 6px;
+        border: 1px solid #b3d9d0;
+      }
+
+      .cover-letter-content {
+        background: white;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        font-family: inherit;
+        font-size: 12px;
+        line-height: 1.6;
+        max-height: 250px;
+        overflow-y: auto;
+        color: #444;
+        white-space: pre-wrap;
+      }
+
+      .btn-sm {
+        padding: 6px 12px;
+        font-size: 11px;
+        width: auto;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <input type="file" id="resumeInput" accept=".pdf,.doc,.docx,.txt" />
+    <div id="jobModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modalTitle"></h2>
+          <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div id="modalBody"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary btn-small">Close</button>
+          <button class="btn btn-primary btn-small">Copy All</button>
+        </div>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

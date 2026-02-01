@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "HireInter",
+  "version": "1.0.0",
+  "description": "AI-powered job matching and cover letter generation based on your resume.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "clipboardWrite",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "https://www.linkedin.com/*",
+    "https://www.glassdoor.com/*",
+    "https://www.bdjobs.com/*",
+    "https://www.naukri.com/*",
+    "https://*/*",
+    "http://*/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "JobSnap - Capture & organize jobs",
+    "default_icons": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
